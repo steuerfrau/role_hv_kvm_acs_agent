@@ -1,0 +1,36 @@
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "22"
+    jump: ACCEPT
+
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "1798"
+    jump: ACCEPT
+
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "16509"
+    jump: ACCEPT
+
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "16514"
+    jump: ACCEPT
+
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "5900:6100"
+    jump: ACCEPT
+
+- iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "49152:49216"
+    jump: ACCEPT
+

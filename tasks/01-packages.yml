@@ -1,0 +1,4 @@
+- name: Install CloudStack Agent package
+  package:
+    name: "{{ role_hv_kvm_acs_agent_package }}"
+    state: present
