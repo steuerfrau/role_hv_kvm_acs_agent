@@ -1,38 +1,63 @@
-Role Name
+role_hv_kvm_acs_agent
 =========
 
-A brief description of the role goes here.
+Installs the CloudStack Agent on top of a default KVM hypervisor setup.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+playbook_baseinstall
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```
+cat defaults/main.yml 
+---
+# defaults file for role_hv_kvm_acs_agent
+role_hv_kvm_acs_agent_acs_version: 4.14
+```
+Can be overwritten.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```
+- name: Create Repositories
+  import_role:
+    name: role_mod_repositories
+  vars:
+    - role_mod_repositories_yum_repos:
+        - name: CloudStack-ShapeBlue
+          description: "ShapeBlue CloudStack Repository."
+          file: "CloudStack-ShapeBlue"
+          baseurl: "http://packages.shapeblue.com/cloudstack/upstream/centos7/{{ role_hv_kvm_acs_agent_acs_version }}"
+          gpgcheck: "yes"
+          gpgkey: "http://packages.shapeblue.com/release.asc"
+          enabled: "yes"
+
+- name: Install KVM Hypervisor
+  import_role:
+    name: role_hv_kvm
+
+- name: Set SELinux to permissive
+  import_role:
+    name: role_bi_selinux
+  vars:
+    - role_bi_selinux_selinux_mode: "permissive"
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Used from playbook_acs_single_node.
 
 License
 -------
 
-BSD
+GNU Public License v3.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Melanie Desaive, m.desaive@mailbox.org
