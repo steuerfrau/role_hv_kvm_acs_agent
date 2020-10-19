@@ -1,4 +1,4 @@
-- name: Configure /etc/cloudstack/agent/agent.properties
-  file:
-    dest: /etc/cloudstack/agent/agent.properties
-    src: files/agent_properties
+# - name: Configure /etc/cloudstack/agent/agent.properties
+#   file:
+#     dest: /etc/cloudstack/agent/agent.properties
+#     src: files/agent_properties
